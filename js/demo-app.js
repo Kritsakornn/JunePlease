@@ -1,17 +1,25 @@
-import { COPY, DEMO_PRESET, PEOPLE } from "./site-content.js";
+import { COPY, DEMO_PRESET, PEOPLE } from "./content.js";
+import { t as tLang, poseText as poseTextLang } from "./i18n.js";
+import {
+  isFilled,
+  isVisible,
+  isLocked,
+  visibleEvents,
+  eventNeedKey,
+  unusedPoseIds,
+  POSE_CHECKS,
+  hasFace,
+  vis,
+  LANDMARKS,
+} from "./domain.js";
+
 
 const HOLD_MS = 4_000;
 const DEFAULT_MS = 20_000;
 const DURS = [10_000, 20_000, 30_000];
 const WRONG_GRACE_MS = 4_500;
 const WRONG_GAP_MS = 7_000;
-const NOSE = 0;
-const LS = 11;
-const RS = 12;
-const LE = 13;
-const RE = 14;
-const LW = 15;
-const RW = 16;
+const { NOSE, LS, RS, LE, RE, LW, RW } = LANDMARKS;
 const GAIN = 2.6;
 
 const PERSON_IDS = Object.keys(PEOPLE);
@@ -23,36 +31,35 @@ const POSES = {
     name: { th: "ท่าตัว T", en: "Arm T" },
     how: { th: "กางแขนออกข้าง ระดับไหล่", en: "Arms out to the sides at shoulder height" },
     hint: { th: "กางแขนออกข้างให้สุด", en: "Open both arms all the way" },
-    check: checkT,
+    check: POSE_CHECKS.t,
   },
   shoulders: {
     name: { th: "ท่าวาดไหล่", en: "Shoulder circles" },
     how: { th: "มือแตะหัวไหล่ แล้ววาดวงกลม", en: "Hands on shoulders, then draw circles" },
     hint: { th: "ยกมือแตะหัวไหล่", en: "Raise both hands to your shoulders" },
-    check: checkShoulders,
+    check: POSE_CHECKS.shoulders,
   },
   punch: {
     name: { th: "ท่าชกสลับ", en: "Alternate punch" },
     how: { th: "ชกไปข้างหน้าทีละข้าง", en: "Punch forward one arm at a time" },
     hint: { th: "ชกแขนไปข้างหน้า", en: "Punch an arm forward" },
-    check: checkPunch,
+    check: POSE_CHECKS.punch,
   },
   armsUp: {
     name: { th: "ท่ายกแขนขึ้น", en: "Arms up" },
     how: { th: "ยกแขนทั้งสองข้างขึ้นเหนือหัว", en: "Raise both arms above your head" },
     hint: { th: "ยกแขนขึ้นให้พ้นหัว", en: "Raise both arms over your head" },
-    check: checkArmsUp,
+    check: POSE_CHECKS.armsUp,
   },
   handsHead: {
     name: { th: "ทามือแตะศีรษะ", en: "Hands on head" },
     how: { th: "ยกมือทั้งสองมาแตะศีรษะ", en: "Bring both hands to your head" },
     hint: { th: "ยกมือแตะหัว", en: "Touch your head with both hands" },
-    check: checkHandsHead,
+    check: POSE_CHECKS.handsHead,
   },
 };
 
 const state = {
-  view: "story",
   role: "elder",
   lang: "th",
   screen: "home",
@@ -84,12 +91,6 @@ const doneNEl = document.querySelector("[data-bind='done-n']");
 const allDoneEl = document.querySelector(".tally-complete");
 const eventListEl = document.getElementById("event-list");
 const stepsEl = document.querySelector("[data-bind='pose-steps']");
-const storyViewEl = document.getElementById("story-view");
-const demoViewEl = document.getElementById("demo-view");
-const skipLinkEl = document.querySelector(".skip-link");
-const storyNavEl = document.querySelector(".story-nav");
-const headerDemoBtn = document.querySelector(".btn-header-demo[data-demo-entry]");
-const demoActionsEl = document.querySelector(".demo-actions");
 let lastTone = "";
 let lastWrongAt = 0;
 let lastTick = 0;
@@ -105,15 +106,11 @@ function pick(list) {
 }
 
 function t(key, vars) {
-  let s = COPY[state.lang][key];
-  if (vars) {
-    for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v));
-  }
-  return s;
+  return tLang(state.lang, key, vars);
 }
 
 function poseText(pose, field) {
-  return pose[field][state.lang];
+  return poseTextLang(pose, field, state.lang);
 }
 
 function whoName(key = state.person) {
@@ -128,29 +125,9 @@ function currentEvent() {
   return state.events.find((ev) => ev.id === state.currentId) || null;
 }
 
-function isFilled(ev) {
-  return Boolean(ev.time && ev.person && ev.set.length);
-}
-
-function isVisible(ev) {
-  if (!isFilled(ev)) return false;
-  return state.events.find((other) => isFilled(other) && other.time === ev.time) === ev;
-}
-
-function isLocked(ev) {
-  return ev.started || ev.done;
-}
-
-function visibleEvents() {
-  return state.events.filter(isVisible).sort((a, b) => a.time.localeCompare(b.time));
-}
-
 function eventNeed(ev) {
-  if (!ev.time) return t("needTime");
-  if (!ev.person) return t("needPerson");
-  if (!ev.set.length) return t("needMove");
-  if (!isVisible(ev)) return t("timeTaken");
-  return "";
+  const key = eventNeedKey(ev, state.events);
+  return key ? t(key) : "";
 }
 
 function currentPose() {
@@ -163,109 +140,8 @@ function poseMs() {
   return currentEvent().set[state.poseIndex].ms;
 }
 
-function unusedPoseIds(ev) {
-  const used = new Set(ev.set.map((item) => item.id));
-  return POSE_IDS.filter((id) => !used.has(id));
-}
-
 function isPlaying() {
   return Boolean(player && !player.paused && !player.ended);
-}
-
-function vis(lm, i) {
-  const p = lm[i];
-  if (!p) return false;
-  if (p.visibility === undefined || p.visibility === null) return true;
-  return p.visibility > 0.2;
-}
-
-function dist(a, b) {
-  return Math.hypot(a.x - b.x, a.y - b.y);
-}
-
-function shoulderWidth(lm) {
-  if (!vis(lm, LS) || !vis(lm, RS)) return 0.22;
-  return Math.max(dist(lm[LS], lm[RS]), 0.12);
-}
-
-function hasFace(lm) {
-  return vis(lm, NOSE) || vis(lm, 2) || vis(lm, 5);
-}
-
-function checkT(lm) {
-  const sw = shoulderWidth(lm);
-  const left = vis(lm, LW) ? lm[LW] : vis(lm, LE) ? lm[LE] : null;
-  const right = vis(lm, RW) ? lm[RW] : vis(lm, RE) ? lm[RE] : null;
-  if (!vis(lm, LS) || !vis(lm, RS) || !left || !right) {
-    return { ok: false, close: false };
-  }
-  const leftOut = Math.abs(left.x - lm[LS].x);
-  const rightOut = Math.abs(right.x - lm[RS].x);
-  const leftLevel = Math.abs(left.y - lm[LS].y) < sw * 1.1;
-  const rightLevel = Math.abs(right.y - lm[RS].y) < sw * 1.1;
-  const close = leftOut > sw * 0.45 && rightOut > sw * 0.45;
-  const ok = leftOut > sw * 0.7 && rightOut > sw * 0.7 && leftLevel && rightLevel;
-  return { ok, close };
-}
-
-function checkShoulders(lm) {
-  if (!vis(lm, LS) || !vis(lm, RS)) return { ok: false, close: false };
-  const sw = shoulderWidth(lm);
-  const leftHand = vis(lm, LW) ? lm[LW] : vis(lm, LE) ? lm[LE] : null;
-  const rightHand = vis(lm, RW) ? lm[RW] : vis(lm, RE) ? lm[RE] : null;
-  if (!leftHand || !rightHand) return { ok: false, close: false };
-  const dL = dist(leftHand, lm[LS]);
-  const dR = dist(rightHand, lm[RS]);
-  return { ok: dL < sw * 0.7 && dR < sw * 0.7, close: dL < sw && dR < sw };
-}
-
-function checkPunch(lm) {
-  if (!vis(lm, LS) || !vis(lm, RS)) return { ok: false, close: false };
-  const sw = shoulderWidth(lm);
-  const left = vis(lm, LW) ? lm[LW] : vis(lm, LE) ? lm[LE] : null;
-  const right = vis(lm, RW) ? lm[RW] : vis(lm, RE) ? lm[RE] : null;
-  if (!left || !right) return { ok: false, close: false };
-  const leftLen = dist(left, lm[LS]);
-  const rightLen = dist(right, lm[RS]);
-  const leftFwd = (lm[LS].z ?? 0) - (left.z ?? 0);
-  const rightFwd = (lm[RS].z ?? 0) - (right.z ?? 0);
-  const punching =
-    leftLen > sw * 1.05 ||
-    rightLen > sw * 1.05 ||
-    leftFwd > 0.06 ||
-    rightFwd > 0.06;
-  return { ok: punching, close: leftLen > sw * 0.7 || rightLen > sw * 0.7 };
-}
-
-function checkArmsUp(lm) {
-  if (!vis(lm, LS) || !vis(lm, RS)) return { ok: false, close: false };
-  const sw = shoulderWidth(lm);
-  const left = vis(lm, LW) ? lm[LW] : vis(lm, LE) ? lm[LE] : null;
-  const right = vis(lm, RW) ? lm[RW] : vis(lm, RE) ? lm[RE] : null;
-  if (!left || !right) return { ok: false, close: false };
-  const top = vis(lm, NOSE) ? lm[NOSE].y : Math.min(lm[LS].y, lm[RS].y) - sw * 0.4;
-  const leftUp = top - left.y;
-  const rightUp = top - right.y;
-  return {
-    ok: leftUp > sw * 0.2 && rightUp > sw * 0.2,
-    close: leftUp > 0 && rightUp > 0,
-  };
-}
-
-function checkHandsHead(lm) {
-  if (!vis(lm, LS) || !vis(lm, RS) || !hasFace(lm)) return { ok: false, close: false };
-  const sw = shoulderWidth(lm);
-  const left = vis(lm, LW) ? lm[LW] : vis(lm, LE) ? lm[LE] : null;
-  const right = vis(lm, RW) ? lm[RW] : vis(lm, RE) ? lm[RE] : null;
-  if (!left || !right) return { ok: false, close: false };
-  const nose = lm[NOSE];
-  const dL = dist(left, nose);
-  const dR = dist(right, nose);
-  const above = left.y < lm[LS].y && right.y < lm[RS].y;
-  return {
-    ok: above && dL < sw * 0.8 && dR < sw * 0.8,
-    close: above && dL < sw * 1.15 && dR < sw * 1.15,
-  };
 }
 
 function person() {
@@ -348,7 +224,7 @@ function homeGroupHtml(title, cards) {
 }
 
 function renderHomeCards() {
-  const list = visibleEvents();
+  const list = visibleEvents(state.events);
   const todo = list.filter((ev) => !ev.done);
   const done = list.filter((ev) => ev.done);
   homeEmptyEl.hidden = list.length > 0;
@@ -401,7 +277,7 @@ function renderEventList() {
           </li>`;
         })
         .join("");
-      const unused = unusedPoseIds(ev);
+      const unused = unusedPoseIds(ev, POSE_IDS);
       const add =
         lock || unused.length === 0
           ? ""
@@ -524,17 +400,6 @@ function render() {
   }
 }
 
-function paintView() {
-  const inDemo = state.view === "demo";
-  storyViewEl.hidden = inDemo;
-  demoViewEl.hidden = !inDemo;
-  storyNavEl.hidden = inDemo;
-  headerDemoBtn.hidden = inDemo;
-  demoActionsEl.hidden = !inDemo;
-  skipLinkEl.href = inDemo ? "#demo-view" : "#main-content";
-  document.body.classList.toggle("is-demo", inDemo);
-}
-
 function createPresetEvent() {
   return {
     id: 1,
@@ -562,49 +427,6 @@ function seedDemo() {
   nextEventId = 2;
 }
 
-function showDemo(entry = "preset") {
-  seedDemo();
-  state.view = "demo";
-  paintView();
-  window.scrollTo({ top: 0, behavior: "auto" });
-  if (entry === "setup") {
-    state.role = "grandchild";
-    render();
-    return;
-  }
-  openCall(1);
-}
-
-function showStory() {
-  const ev = currentEvent();
-  if (ev && !ev.done) ev.started = false;
-  stopCamera();
-  stopSound();
-  state.view = "story";
-  paintView();
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-
-function initSectionTransitions() {
-  const sections = [...document.querySelectorAll(".story-section")];
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!("IntersectionObserver" in window) || !sections.length || reduceMotion) return;
-
-  sections[0].classList.add("is-visible");
-  document.body.classList.add("has-scroll-reveal");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -8%" },
-  );
-  sections.slice(1).forEach((section) => observer.observe(section));
-}
-
 function go(screen) {
   const leaving = state.screen;
   state.screen = screen;
@@ -615,7 +437,7 @@ function go(screen) {
 
 function openCall(id) {
   const ev = state.events.find((item) => item.id === id);
-  if (!ev || ev.done || !isVisible(ev)) return;
+  if (!ev || ev.done || !isVisible(ev, state.events)) return;
   state.currentId = ev.id;
   state.person = ev.person;
   state.role = "elder";
@@ -833,7 +655,7 @@ function tick() {
 
 async function openSession() {
   const ev = currentEvent();
-  if (!ev || ev.done || !isVisible(ev)) return;
+  if (!ev || ev.done || !isVisible(ev, state.events)) return;
   ev.started = true;
   state.person = ev.person;
   state.poseIndex = 0;
@@ -857,18 +679,10 @@ async function openSession() {
   }
 }
 
-document.querySelectorAll("[data-demo-entry]").forEach((btn) => {
-  btn.addEventListener("click", () => showDemo(btn.dataset.demoEntry));
+document.getElementById("reset-demo").addEventListener("click", () => {
+  seedDemo();
+  openCall(1);
 });
-
-document.querySelectorAll("[data-story-link]").forEach((link) => {
-  link.addEventListener("click", () => {
-    if (state.view === "demo") showStory();
-  });
-});
-
-document.getElementById("back-story").addEventListener("click", showStory);
-document.getElementById("reset-demo").addEventListener("click", () => showDemo("preset"));
 
 document.querySelectorAll(".lang").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -946,6 +760,11 @@ document.getElementById("call-back").addEventListener("click", () => {
 document.getElementById("skip-btn").addEventListener("click", () => completePose(false));
 document.getElementById("home-btn").addEventListener("click", () => go("home"));
 
-initSectionTransitions();
-paintView();
-render();
+const entry = new URLSearchParams(location.search).get("entry") || "preset";
+seedDemo();
+if (entry === "setup") {
+  state.role = "grandchild";
+  render();
+} else {
+  openCall(1);
+}
