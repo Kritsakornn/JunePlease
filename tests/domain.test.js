@@ -8,6 +8,9 @@ import {
   unusedPoseIds,
   checkT,
   checkShoulders,
+  checkPunch,
+  checkArmsUp,
+  checkHandsHead,
   hasFace,
 } from "../js/domain.js";
 
@@ -99,5 +102,34 @@ describe("pose checks", () => {
     lm[15] = pt(0.41, 0.51);
     lm[16] = pt(0.59, 0.51);
     expect(checkShoulders(lm).ok).toBe(true);
+  });
+
+  it("checkPunch is ok when a wrist is extended far from the shoulder", () => {
+    const lm = Array.from({ length: 17 }, () => pt(0.5, 0.5));
+    lm[11] = pt(0.4, 0.5);
+    lm[12] = pt(0.6, 0.5);
+    lm[15] = pt(0.05, 0.5);
+    lm[16] = pt(0.62, 0.5);
+    expect(checkPunch(lm).ok).toBe(true);
+  });
+
+  it("checkArmsUp is ok when both wrists are above the nose", () => {
+    const lm = Array.from({ length: 17 }, () => pt(0.5, 0.5));
+    lm[0] = pt(0.5, 0.3);
+    lm[11] = pt(0.4, 0.5);
+    lm[12] = pt(0.6, 0.5);
+    lm[15] = pt(0.35, 0.15);
+    lm[16] = pt(0.65, 0.15);
+    expect(checkArmsUp(lm).ok).toBe(true);
+  });
+
+  it("checkHandsHead is ok when both wrists are near the nose above the shoulders", () => {
+    const lm = Array.from({ length: 17 }, () => pt(0.5, 0.5));
+    lm[0] = pt(0.5, 0.25, 0, 0.9);
+    lm[11] = pt(0.4, 0.5);
+    lm[12] = pt(0.6, 0.5);
+    lm[15] = pt(0.48, 0.28);
+    lm[16] = pt(0.52, 0.28);
+    expect(checkHandsHead(lm).ok).toBe(true);
   });
 });

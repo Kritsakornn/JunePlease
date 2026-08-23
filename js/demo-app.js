@@ -1,7 +1,6 @@
-import { COPY, DEMO_PRESET, PEOPLE } from "./content.js";
+import { DEMO_PRESET, PEOPLE } from "./content.js";
 import { t as tLang, poseText as poseTextLang } from "./i18n.js";
 import {
-  isFilled,
   isVisible,
   isLocked,
   visibleEvents,

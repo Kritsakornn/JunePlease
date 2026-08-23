@@ -83,6 +83,7 @@
   background: transparent;
   color: var(--ink-soft);
   font-size: 0.95rem;
+  text-decoration: none;
 }
 
 .btn-text-top:hover {

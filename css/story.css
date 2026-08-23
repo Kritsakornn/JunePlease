@@ -102,7 +102,8 @@ html[lang="en"] .story-nav a {
 }
 
 .btn-header-demo,
-.setup-demo-link {
+.setup-demo-link,
+.mobile-demo-link {
   border: 0;
   font: inherit;
   font-weight: 700;
@@ -115,6 +116,7 @@ html[lang="en"] .story-nav a {
   background: var(--action);
   color: #fff;
   white-space: nowrap;
+  text-decoration: none;
   box-shadow: var(--shadow-s);
 }
 
@@ -270,6 +272,7 @@ html[lang="en"] .section-kicker {
   cursor: pointer;
   background: var(--action);
   color: #fff;
+  text-decoration: none;
   box-shadow: var(--shadow-m);
   transition: transform 0.32s var(--ease), box-shadow 0.32s var(--ease),
     background-color 0.32s var(--ease);
@@ -288,7 +291,8 @@ html[lang="en"] .section-kicker {
 }
 
 .story-link,
-.setup-demo-link {
+.setup-demo-link,
+.mobile-demo-link {
   color: var(--kram);
   font-weight: 700;
 }
@@ -297,12 +301,21 @@ html[lang="en"] .section-kicker {
   text-underline-offset: 5px;
 }
 
-.setup-demo-link {
-  margin-top: 15px;
+.setup-demo-link,
+.mobile-demo-link {
   padding: 4px 0;
   background: transparent;
   text-decoration: underline;
   text-underline-offset: 5px;
+}
+
+.setup-demo-link {
+  margin-top: 15px;
+}
+
+.mobile-demo-link {
+  display: inline-block;
+  margin-top: 10px;
 }
 
 .hero-visual {
@@ -473,80 +486,6 @@ html[lang="en"] .section-kicker {
   border-top: 1px solid var(--hair);
 }
 
-.inspiration-story {
-  display: grid;
-  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
-  gap: 24px;
-  align-items: stretch;
-}
-
-.inspiration-photo {
-  position: relative;
-  min-height: 620px;
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--r-lg);
-  background: var(--glaze);
-  box-shadow: var(--shadow-m), inset 0 0 0 1px var(--hair);
-}
-
-.inspiration-slides {
-  position: absolute;
-  inset: 0;
-}
-
-.inspiration-slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0;
-  animation: inspiration-crossfade 10s ease-in-out infinite;
-}
-
-.inspiration-slide:nth-child(2) {
-  animation-delay: -5s;
-}
-
-@keyframes inspiration-crossfade {
-  0%,
-  45% {
-    opacity: 1;
-  }
-
-  50%,
-  95% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.inspiration-photo figcaption {
-  position: absolute;
-  z-index: 1;
-  right: 18px;
-  bottom: 18px;
-  left: 18px;
-  padding: 16px 18px;
-  border-radius: var(--r-md);
-  background: rgba(18, 35, 60, 0.88);
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.5;
-  backdrop-filter: blur(10px);
-}
-
-.inspiration-story .story-cards {
-  grid-template-columns: 1fr;
-}
-
 .story-cards,
 .how-steps {
   display: grid;
@@ -617,7 +556,7 @@ html[lang="en"] .section-kicker {
   color: #fff;
 }
 
-.story-demo-cta {
+.how-section .story-demo-cta {
   display: block;
   margin: 34px auto 0;
   text-align: center;
@@ -798,15 +737,6 @@ html[lang="en"] .section-kicker {
     grid-template-columns: 1fr;
   }
 
-  .inspiration-story {
-    grid-template-columns: 1fr;
-  }
-
-  .inspiration-photo {
-    height: min(110vw, 700px);
-    min-height: 0;
-  }
-
   .mobile-section {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -895,19 +825,6 @@ html[lang="en"] .section-kicker {
     padding: 24px;
   }
 
-  .inspiration-photo {
-    height: 112vw;
-    max-height: 590px;
-  }
-
-  .inspiration-photo figcaption {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    padding: 13px 14px;
-    font-size: 0.88rem;
-  }
-
   .team-grid {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
@@ -939,18 +856,6 @@ html[lang="en"] .section-kicker {
   .hero-person {
     display: none;
     animation: none !important;
-  }
-
-  .inspiration-slide {
-    animation: none !important;
-  }
-
-  .inspiration-slide:first-child {
-    opacity: 1;
-  }
-
-  .inspiration-slide:nth-child(2) {
-    opacity: 0;
   }
 
   .hero-person:first-child {

@@ -91,11 +91,6 @@ export const COPY = {
     heroFeedback: "ฟีดแบ็กท่าทางแบบเรียลไทม์",
     inspirationKicker: "แรงบันดาลใจ",
     inspirationTitle: "สร้างบางสิ่งให้คนที่เรารัก แม้วันที่เราอยู่ข้าง ๆ ไม่ได้",
-    inspirationLead:
-      "การเรียนและการทำงานทำให้เราไม่ได้ใช้เวลากับปู่ย่าตายายหรือครอบครัวมากเท่าที่อยาก เราจึงเริ่มสร้างสิ่งเล็ก ๆ ที่ช่วยส่งความห่วงใยไปถึงพวกเขาได้ แม้ในวันที่เราไม่ได้อยู่ด้วยกัน",
-    activityGalleryAria: "ภาพทีมขยับกับหลานจากกิจกรรมสร้างต้นแบบ",
-    activityCaption:
-      "จากกิจกรรมที่พาไอเดียเล็ก ๆ ของเรา ให้กลายเป็นต้นแบบที่ส่งความห่วงใยถึงครอบครัว",
     problemTitle: "เวลาที่หายไป",
     problemBody:
       "เมื่อเรียนหรือทำงาน เราอาจไม่มีเวลานั่งคุย ดูแล หรือชวนปู่ย่าตายายและคนในครอบครัวขยับร่างกายอย่างสม่ำเสมอ",
@@ -202,11 +197,6 @@ export const COPY = {
     heroFeedback: "Real-time posture feedback",
     inspirationKicker: "Our inspiration",
     inspirationTitle: "Building something for the people we love, even when we cannot be there",
-    inspirationLead:
-      "Work and study mean we cannot spend as much time with our grandparents and family as we would like. We started building a small way to send our care to them, even on the days we cannot be together.",
-    activityGalleryAria: "The Kha-Yab-Gub-Lan team at a prototype-building activity",
-    activityCaption:
-      "The activity where our small idea became a prototype designed to carry care back to our families.",
     problemTitle: "The time we miss",
     problemBody:
       "When work or study gets busy, we may not have enough time to sit together, offer care, or regularly invite our grandparents and family to move.",
