@@ -10,12 +10,13 @@
       href="https://fonts.googleapis.com/css2?family=Chonburi&amp;family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/tokens.css" />
+    <link rel="stylesheet" href="./css/story.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skipLink">ข้ามไปยังเนื้อหาหลัก</a>
     <header class="topbar">
-      <a class="brand" href="#intro" data-story-link data-i18n="brand">ขยับกับหลาน</a>
+      <a class="brand" href="#intro" data-i18n="brand">ขยับกับหลาน</a>
       <nav class="story-nav" aria-label="ส่วนต่าง ๆ ของเว็บไซต์" data-i18n-aria="siteNavAria">
         <a href="#intro" data-i18n="navIntro">แนะนำ</a>
         <a href="#inspiration" data-i18n="navInspiration">แรงบันดาลใจ</a>
@@ -28,15 +29,7 @@
           <button type="button" class="lang is-on" data-lang="th" aria-pressed="true">ไทย</button>
           <button type="button" class="lang" data-lang="en" aria-pressed="false">EN</button>
         </div>
-        <button type="button" class="btn-header-demo" data-demo-entry="preset" data-i18n="tryDemo">ลองเดโม</button>
-        <div class="demo-actions" hidden>
-          <button type="button" id="back-story" class="btn-text-top" data-i18n="backStory">กลับไปดูเรื่องราว</button>
-          <div class="roles" role="group" aria-label="บทบาทบนจอ" data-i18n-aria="roleAria">
-            <button type="button" class="role is-on" data-role="elder" data-i18n="elder" aria-pressed="true">ผู้สูงอายุ</button>
-            <button type="button" class="role" data-role="grandchild" data-i18n="grandchild" aria-pressed="false">หลาน</button>
-          </div>
-          <button type="button" id="reset-demo" class="btn-text-top" data-i18n="resetDemo">เริ่มเดโมใหม่</button>
-        </div>
+        <a class="btn-header-demo" href="./demo.html?entry=preset" data-i18n="tryDemo">ลองเดโม</a>
       </div>
     </header>
 
@@ -49,32 +42,32 @@
               <h1 data-i18n="heroTitle">ให้การขยับตัว รู้สึกเหมือนหลานแวะมาหา</h1>
               <p class="hero-body" data-i18n="heroBody">ขยับกับหลานใช้ใบหน้าและเสียงที่อัดไว้ของหลาน มาชวนผู้สูงอายุทำท่านั่งง่าย ๆ พร้อมฟีดแบ็กจากกล้องบนหน้าจอ</p>
               <div class="hero-actions">
-                <button type="button" class="btn-green" data-demo-entry="preset" data-i18n="tryDemoShort">ลองเดโม 60 วินาที</button>
+                <a class="story-demo-cta" href="./demo.html?entry=preset" data-i18n="tryDemoShort">ลองเดโม 60 วินาที</a>
                 <a class="story-link" href="#inspiration" data-i18n="exploreWhy">ดูว่าทำไมเราสร้างสิ่งนี้</a>
               </div>
-              <button type="button" class="setup-demo-link" data-demo-entry="setup" data-i18n="setupDemo">ทดลองตั้งค่าในบทบาทหลาน</button>
+              <a class="setup-demo-link" href="./demo.html?entry=setup" data-i18n="setupDemo">ทดลองตั้งค่าในบทบาทหลาน</a>
             </div>
             <div class="hero-visual" aria-hidden="true">
-              <img class="hero-sticker" src="./Forever-Jo-Jo-stickers/22.png" alt="" width="185" height="160">
+              <img class="hero-sticker" src="./prop_image_content/Forever-Jo-Jo-stickers/22.png" alt="" width="185" height="160">
               <div class="hero-clock">
                 <span class="hero-clock-label" data-i18n="heroTimeLabel">เวลาออกกำลังกาย</span>
                 <strong>10:00</strong>
                 <div class="hero-portraits">
                   <figure class="hero-person">
                     <img src="./prop_image_people/Pong/pong.jpg" alt="" width="320" height="320">
-                    <figcaption>ป้อง · Pong</figcaption>
+                    <figcaption data-person-name="pong">ป้อง</figcaption>
                   </figure>
                   <figure class="hero-person">
                     <img src="./prop_image_people/Nua/nua.jpg" alt="" width="320" height="320">
-                    <figcaption>เหนือ · Nua</figcaption>
+                    <figcaption data-person-name="nua">เหนือ</figcaption>
                   </figure>
                   <figure class="hero-person">
                     <img src="./prop_image_people/Yeen/yeen.jpg" alt="" width="320" height="320">
-                    <figcaption>ยีนส์ · Yeen</figcaption>
+                    <figcaption data-person-name="yeen">ยีนส์</figcaption>
                   </figure>
                   <figure class="hero-person">
                     <img src="./prop_image_people/James/james.jpg" alt="" width="320" height="320">
-                    <figcaption>เจมส์ · James</figcaption>
+                    <figcaption data-person-name="james">เจมส์</figcaption>
                   </figure>
                 </div>
               </div>
@@ -89,26 +82,36 @@
           <section id="inspiration" class="story-section inspiration-section">
             <div class="section-heading">
               <p class="section-kicker" data-i18n="inspirationKicker">แรงบันดาลใจ</p>
-              <h2 data-i18n="inspirationTitle">แอปเตือนได้ แต่ความผูกพันทำให้เราอยากเริ่ม</h2>
+              <h2 data-i18n="inspirationTitle">สร้างบางสิ่งให้คนที่เรารัก แม้วันที่เราอยู่ข้าง ๆ ไม่ได้</h2>
+              <p data-i18n="inspirationLead">การเรียนและการทำงานทำให้เราไม่ได้ใช้เวลากับปู่ย่าตายายหรือครอบครัวมากเท่าที่อยาก เราจึงเริ่มสร้างสิ่งเล็ก ๆ ที่ช่วยส่งความห่วงใยไปถึงพวกเขาได้ แม้ในวันที่เราไม่ได้อยู่ด้วยกัน</p>
             </div>
-            <div class="story-cards">
-              <article>
-                <span>01</span>
-                <h3 data-i18n="problemTitle">ปัญหาที่เราเห็น</h3>
-                <p data-i18n="problemBody">การออกกำลังกายคนเดียวอาจรู้สึกเหมือนเป็นหน้าที่ และเสียงเตือนทั่วไปไม่ได้ช่วยลดความเหงาหรือความไม่อยากเริ่ม</p>
-              </article>
-              <article>
-                <span>02</span>
-                <h3 data-i18n="insightTitle">สิ่งที่เราเชื่อ</h3>
-                <p data-i18n="insightBody">เสียงและใบหน้าที่คุ้นเคยมีน้ำหนักทางความรู้สึก คำเตือนจึงเปลี่ยนเป็นคำชวนจากคนในครอบครัวได้</p>
-              </article>
-              <article>
-                <span>03</span>
-                <h3 data-i18n="responseTitle">สิ่งที่เราสร้าง</h3>
-                <p data-i18n="responseBody">ให้หลานเลือกเวลา ชุดท่า และอัดเสียงไว้ล่วงหน้า แล้วให้เว็บช่วยดูท่าทางและให้กำลังใจระหว่างเซสชัน</p>
-              </article>
+            <div class="inspiration-story">
+              <figure class="inspiration-photo">
+                <div class="inspiration-slides" role="img" aria-label="ภาพทีมขยับกับหลานจากกิจกรรมสร้างต้นแบบ" data-i18n-aria="activityGalleryAria">
+                  <img class="inspiration-slide" src="./prop_image_content/activity/IMG_2500.JPG" alt="" width="1108" height="1477">
+                  <img class="inspiration-slide" src="./prop_image_content/activity/IMG_4376.jpg" alt="" width="1800" height="2400">
+                </div>
+                <figcaption data-i18n="activityCaption">จากกิจกรรมที่พาไอเดียเล็ก ๆ ของเรา ให้กลายเป็นต้นแบบที่ส่งความห่วงใยถึงครอบครัว</figcaption>
+              </figure>
+              <div class="story-cards">
+                <article>
+                  <span>01</span>
+                  <h3 data-i18n="problemTitle">เวลาที่หายไป</h3>
+                  <p data-i18n="problemBody">เมื่อเรียนหรือทำงาน เราอาจไม่มีเวลานั่งคุย ดูแล หรือชวนปู่ย่าตายายและคนในครอบครัวขยับร่างกายอย่างสม่ำเสมอ</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <h3 data-i18n="insightTitle">คนที่เราอยากสร้างให้</h3>
+                  <p data-i18n="insightBody">เราไม่ได้อยากสร้างแค่แอป แต่สร้างวิธีให้เสียงและใบหน้าของคนที่รักยังส่งความรู้สึกว่า “เราอยู่ตรงนี้นะ”</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <h3 data-i18n="responseTitle">สิ่งที่เราเริ่มลงมือ</h3>
+                  <p data-i18n="responseBody">เราจึงสร้างต้นแบบที่ให้หลานเตรียมเวลา ท่าขยับ และเสียงชวนไว้ล่วงหน้า เพื่อให้ความห่วงใยไปถึงผู้สูงอายุได้ในทุกวัน</p>
+                </article>
+              </div>
             </div>
-            <p class="mission-line" data-i18n="missionLine">เราอยากให้การขยับในทุกวัน รู้สึกเหมือนเป็นเวลาที่ครอบครัวได้อยู่ด้วยกัน</p>
+            <p class="mission-line" data-i18n="missionLine">เพราะสิ่งที่มีความหมายที่สุด อาจไม่ใช่เทคโนโลยีที่ล้ำที่สุด แต่คือสิ่งที่ทำให้คนที่เรารักรู้ว่าเรายังนึกถึงเขาเสมอ</p>
           </section>
 
           <section id="how-it-works" class="story-section how-section">
@@ -134,7 +137,7 @@
                 <p data-i18n="stepThreeBody">เว็บให้ฟีดแบ็กตัวใหญ่บนจอ และชมเมื่อทำเซสชันจบ</p>
               </li>
             </ol>
-            <button type="button" class="btn-green story-demo-cta" data-demo-entry="preset" data-i18n="tryDemoShort">ลองเดโม 60 วินาที</button>
+            <a class="story-demo-cta" href="./demo.html?entry=preset" data-i18n="tryDemoShort">ลองเดโม 60 วินาที</a>
           </section>
 
           <section id="mobile-app" class="story-section mobile-section">
@@ -189,108 +192,10 @@
         </main>
         <footer class="site-footer">
           <p data-i18n="footerLine">ขยับด้วยกัน ใกล้กันขึ้นอีกนิด</p>
-          <button type="button" class="btn-header-demo" data-demo-entry="preset" data-i18n="tryDemo">ลองเดโม</button>
+          <a class="btn-header-demo" href="./demo.html?entry=preset" data-i18n="tryDemo">ลองเดโม</a>
         </footer>
       </div>
-
-      <main id="demo-view" hidden>
-        <div class="demo-heading">
-          <p class="section-kicker" data-i18n="demoKicker">ต้นแบบที่ใช้งานได้</p>
-          <h1 data-i18n="demoTitle">เดโมขยับกับหลาน</h1>
-          <p data-i18n="demoLead">เลือกบทบาทบนแถบด้านบน หรือเริ่มจากเซสชันตัวอย่างที่เตรียมไว้</p>
-        </div>
-        <section id="screen-home" class="screen is-on">
-          <img class="sticker sticker-tl" src="./Forever-Jo-Jo-stickers/02.png" alt="" width="185" height="160" aria-hidden="true">
-          <img class="sticker sticker-tr" src="./Forever-Jo-Jo-stickers/01.png" alt="" width="185" height="160" aria-hidden="true">
-          <div class="home stagger">
-            <p class="kicker" data-i18n="today">วันนี้</p>
-            <div id="home-tally" class="home-tally" hidden>
-              <div class="tally">
-                <p class="tally-label" data-i18n="todoLabel">ยังไม่ทำ</p>
-                <p class="tally-n" data-bind="todo-n">0</p>
-              </div>
-              <div class="tally tally-done">
-                <p class="tally-label" data-i18n="doneLabel">ทำแล้ว</p>
-                <p class="tally-n" data-bind="done-n">0</p>
-                <p class="tally-complete" data-i18n="allDone">ครบแล้ว</p>
-              </div>
-            </div>
-            <p id="home-empty" class="home-empty" data-i18n="homeEmpty">วันนี้ยังไม่มีรอบ</p>
-            <div id="home-cards" class="home-board"></div>
-          </div>
-        </section>
-
-        <section id="screen-call" class="screen">
-          <img class="sticker sticker-call" src="./Forever-Jo-Jo-stickers/22.png" alt="" width="185" height="160" aria-hidden="true">
-          <div class="call stagger">
-            <div class="portrait ring">
-              <div class="avatar" data-bind="avatar" aria-hidden="true"></div>
-            </div>
-            <p class="call-name"><span data-i18n="grandchild">หลาน</span> <span data-bind="grandchild-name">ป้อง</span></p>
-            <p class="call-caption">
-              <span data-i18n="callLine1">ถึงเวลาแล้ว มายืดเส้นกับหนูหน่อย</span><br />
-              <span data-i18n="callLine2">กดปุ่มสีเขียวเลย</span>
-            </p>
-            <button type="button" id="start-btn" class="btn-green" data-i18n="start">เริ่มออกกำลังกาย</button>
-            <button type="button" id="call-back" class="btn-text" data-i18n="backHome">กลับตารางเวลา</button>
-          </div>
-        </section>
-
-        <section id="screen-session" class="screen">
-          <div class="session">
-            <div class="coach stagger">
-              <p class="step-label"><span data-i18n="move">ท่าที่</span> <b data-bind="pose-index">1</b> <span data-i18n="moveOf">จาก 3</span></p>
-              <div class="steps" data-bind="pose-steps" aria-hidden="true"></div>
-              <h1 class="pose-name" data-bind="pose-name"></h1>
-              <p class="pose-how" data-bind="pose-how"></p>
-              <div class="feedback-wrap">
-                <p id="feedback" class="feedback tone-wait" data-bind="fb-th" aria-live="polite">หันหน้าเข้ากล้อง</p>
-                <img class="sticker-fb s-wait" src="./Forever-Jo-Jo-stickers/15.png" alt="" width="185" height="160" aria-hidden="true">
-                <img class="sticker-fb s-hint" src="./Forever-Jo-Jo-stickers/08.png" alt="" width="185" height="160" aria-hidden="true">
-                <img class="sticker-fb s-good" src="./Forever-Jo-Jo-stickers/22.png" alt="" width="185" height="160" aria-hidden="true">
-              </div>
-              <div class="timer">
-                <p class="timer-text" data-bind="timer">เหลืออีก 20 วินาที</p>
-                <div class="timer-bar"><span></span></div>
-              </div>
-              <button type="button" id="skip-btn" class="btn-skip" data-i18n="skip">ท่าถัดไป</button>
-            </div>
-            <div class="watch">
-              <div class="stage-wrap">
-                <div class="stage">
-                  <video id="cam" playsinline autoplay muted></video>
-                  <canvas id="dots"></canvas>
-                </div>
-                <div class="avatar pip" data-bind="avatar"></div>
-              </div>
-              <p class="cam-hint" data-i18n="camHint">นั่งห่างจอเล็กน้อย ให้เห็นหัวไหล่และแขน</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="screen-praise" class="screen">
-          <img class="sticker sticker-praise" src="./Forever-Jo-Jo-stickers/13.png" alt="" width="185" height="160" aria-hidden="true">
-          <div class="praise stagger">
-            <div class="portrait bloom">
-              <div class="avatar lg" data-bind="avatar" aria-hidden="true"></div>
-            </div>
-            <h1 class="praise-title" data-i18n="praise">เก่งมาก</h1>
-            <p class="praise-body" data-bind="praise-body">วันนี้ครบสามท่าแล้ว</p>
-            <button type="button" id="home-btn" class="btn-green" data-i18n="backHome">กลับตารางเวลา</button>
-          </div>
-        </section>
-
-        <section id="screen-grandchild" class="screen">
-          <img class="sticker sticker-g" src="./Forever-Jo-Jo-stickers/04.png" alt="" width="185" height="160" aria-hidden="true">
-          <div class="setup stagger">
-            <h1 class="g-title" data-i18n="gTitle">การตั้งค่าของหลาน</h1>
-            <p class="g-lead" data-i18n="gLead">เพิ่มกิจกรรม ตั้งโมงนัด เลือกหลาน และชุดท่า</p>
-            <div id="event-list" class="event-list"></div>
-            <button type="button" id="add-event" class="btn-add-event" data-i18n="addEvent">เพิ่มกิจกรรม</button>
-          </div>
-        </section>
-      </main>
     </div>
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="./js/story.js"></script>
   </body>
 </html>
