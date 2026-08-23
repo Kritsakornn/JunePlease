@@ -486,6 +486,17 @@ html[lang="en"] .section-kicker {
   border-top: 1px solid var(--hair);
 }
 
+.inspiration-photo {
+  display: block;
+  width: 100%;
+  height: min(58vw, 560px);
+  margin-bottom: 28px;
+  border-radius: var(--r-lg);
+  object-fit: cover;
+  object-position: center 54%;
+  box-shadow: var(--shadow-s), inset 0 0 0 1px var(--hair);
+}
+
 .story-cards,
 .how-steps {
   display: grid;

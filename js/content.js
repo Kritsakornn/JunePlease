@@ -91,6 +91,7 @@ export const COPY = {
     heroFeedback: "ฟีดแบ็กท่าทางแบบเรียลไทม์",
     inspirationKicker: "แรงบันดาลใจ",
     inspirationTitle: "สร้างบางสิ่งให้คนที่เรารัก แม้วันที่เราอยู่ข้าง ๆ ไม่ได้",
+    inspirationPhotoAlt: "ทีม June Please หลังนำเสนอต้นแบบขยับกับหลาน",
     problemTitle: "เวลาที่หายไป",
     problemBody:
       "เมื่อเรียนหรือทำงาน เราอาจไม่มีเวลานั่งคุย ดูแล หรือชวนปู่ย่าตายายและคนในครอบครัวขยับร่างกายอย่างสม่ำเสมอ",
@@ -197,6 +198,7 @@ export const COPY = {
     heroFeedback: "Real-time posture feedback",
     inspirationKicker: "Our inspiration",
     inspirationTitle: "Building something for the people we love, even when we cannot be there",
+    inspirationPhotoAlt: "The June Please team after presenting the Kha-Yab-Gub-Lan prototype",
     problemTitle: "The time we miss",
     problemBody:
       "When work or study gets busy, we may not have enough time to sit together, offer care, or regularly invite our grandparents and family to move.",
