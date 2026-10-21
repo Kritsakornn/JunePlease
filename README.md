@@ -47,7 +47,7 @@ Today's session waits on the elder's screen. At the set time, the elder sees the
 ![Elder's schedule card for today](docs/screenshots/demo-elder.png)
 
 ### 3. Feedback
-The camera watches the elder's moves. A correct move earns praise in the grandchild's voice, and a move that isn't quite there gets a gentle nudge. After the last move, a praise screen appears.
+The camera watches the elder's moves. A correct move earns praise in the grandchild's voice, and a move that isn't quite there gets a gentle nudge. After the last move, a praise screen appears
 
 ---
 
