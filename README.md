@@ -1,110 +1,110 @@
-# ขยับกับหลาน (Kha-Yab-Gub-Lan)
+# Kha-Yab-Gub-Lan (ขยับกับหลาน)
 
-> **ให้การขยับ รู้สึกเหมือนหลานแวะมา**
-> เว็บต้นแบบชวนผู้สูงอายุออกกำลังกายท่านั่ง โดยใช้ใบหน้าและเสียงของหลานเป็นคนชวน พร้อมกล้องช่วยดูท่าทางแบบเรียลไทม์
+> **Make moving feel like a visit from your grandchild**
+> A web prototype that invites elders into seated exercise, using a grandchild's face and voice as the one who asks, with the camera checking their moves in real time.
 
-![หน้าแรกของเว็บไซต์ขยับกับหลาน](docs/screenshots/story-hero.png)
-
----
-
-## 💡 ที่มาของไอเดีย
-
-โปรเจกต์นี้เริ่มจากคำถามที่งาน **Cursor Build Salaya** ว่า
-
-> **"เราจะสร้างอะไรให้คนที่เรารัก?"**
-
-ทีม **June Please** อยากรู้ว่าเทคโนโลยีจะช่วยดูแลคนในครอบครัวได้ยังไง ในวันที่งาน การเรียน หรือระยะทางทำให้เราไปอยู่ข้าง ๆ ไม่ได้
-
-ผู้สูงอายุหลายคนไม่ค่อยอยากทำตามแอปสุขภาพหรือเทรนเนอร์ที่ไม่รู้จัก แต่ถ้า **หลานเป็นคนมาชวน** การออกกำลังกายจะไม่รู้สึกเหมือนถูกบังคับ จะรู้สึกเหมือนหลานแวะมาหาและชวนเล่นด้วยมากกว่า
-
-![ทีม June Please ที่งาน Cursor Build Salaya](prop_image_content/activity/IMG_2500.JPG)
+![Kha-Yab-Gub-Lan home page](docs/screenshots/story-hero.png)
 
 ---
 
-## ✨ ฟีเจอร์หลัก
+## 💡 Where the idea came from
 
-| ฟีเจอร์ | รายละเอียด |
+This project started with one question at **Cursor Build Salaya**:
+
+> **"What would we build for someone we love?"**
+
+Team **June Please** wanted to explore how technology could help care for family on the days when work, study, or distance keeps us from being there.
+
+Many elders don't want to follow a health app or a trainer they don't know. But when **their grandchild is the one asking**, exercise stops feeling like a chore. It feels more like the grandchild dropped by to play.
+
+![Team June Please at Cursor Build Salaya](prop_image_content/activity/IMG_2500.JPG)
+
+---
+
+## ✨ Key features
+
+| Feature | Details |
 | --- | --- |
-| 🔔 **เสียงเรียกจากหลาน** | พอถึงเวลา แอปจะเล่นเสียงที่หลานอัดไว้ แทนเสียงเตือนแบบติ๊ด ๆ บนจอมีรูปหน้าหลานกับปุ่มสีเขียวปุ่มเดียว |
-| 🪑 **ท่าออกกำลังกายแบบนั่ง** | ทุกท่าทำบนเก้าอี้ได้ เช่น ท่าตัว T, ท่าวาดไหล่, ท่าชกสลับ, ท่ายกแขน, ท่ามือแตะศีรษะ |
-| 📷 **กล้องช่วยดูท่า** | ใช้ MediaPipe Pose ตรวจท่าจากกล้องหน้าแบบเรียลไทม์ แล้วแสดงฟีดแบ็กตัวใหญ่อ่านง่าย |
-| 🎉 **หน้าชมเมื่อจบเซสชัน** | พอทำครบ หลานจะชมผ่านเสียงและข้อความ แล้วกลับไปหน้าตารางเวลา |
-| 🌏 **2 ภาษา** | สลับไทย / อังกฤษได้จากแถบด้านบน |
-| 🔒 **ความเป็นส่วนตัว** | ประมวลผลภาพกล้องบนเครื่อง ไม่ส่งภาพหรือคลิปออกไปไหน |
+| 🔔 **A call from the grandchild** | When it's time, the app plays a voice clip the grandchild recorded instead of a beep. The screen shows only the grandchild's face and one green button. |
+| 🪑 **Seated exercises** | Every move can be done in a chair: T-arms, shoulder circles, alternating punches, arms up, and hands on head. |
+| 📷 **Camera move checking** | MediaPipe Pose checks the elder's moves through the front camera in real time and shows large, easy-to-read feedback. |
+| 🎉 **Praise at the end** | When the session ends, the grandchild gives praise by voice and on-screen text, then the app returns to the schedule. |
+| 🌏 **Two languages** | Switch between Thai and English from the top bar. |
+| 🔒 **Privacy** | Camera frames are processed on the device. No images or video leave it. |
 
 ---
 
-## 🧭 วิธีการทำงาน (3 ขั้นตอน)
+## 🧭 How it works (3 steps)
 
-### 1. หลานเตรียม
-หลานเลือกเวลานัด เลือกว่าจะให้ใครเป็นคนชวน แล้วจัดชุดท่าที่เหมาะกับวันนั้น
+### 1. The grandchild prepares
+The grandchild picks the time, chooses who will do the asking, and builds a set of moves that suits the day.
 
-![หน้าการตั้งค่าของหลาน](docs/screenshots/demo-grandchild.png)
+![Grandchild setup screen](docs/screenshots/demo-grandchild.png)
 
-### 2. ผู้สูงอายุเริ่มขยับ
-พอถึงเวลา ผู้สูงอายุจะเห็นหน้าหลาน ได้ยินเสียงหลานชวน แล้วกด **"เริ่มออกกำลังกาย"** ปุ่มเดียว
+### 2. The elder starts moving
+At the set time, the elder sees the grandchild's face, hears their voice, and presses one button: **"Start exercise"**.
 
-![หน้าการเรียกจากหลาน](docs/screenshots/demo-elder.png)
+![Call from the grandchild](docs/screenshots/demo-elder.png)
 
-### 3. รับฟีดแบ็ก
-กล้องจะดูท่าทางของผู้สูงอายุ ถ้าทำท่าถูกจะมีเสียงหลานชม ถ้ายังไม่ครบจะมีเสียงหลานบอกให้ปรับนิดหน่อย เมื่อจบทุกท่าจะขึ้นหน้าชม
-
----
-
-## 🛠️ เทคโนโลยีที่ใช้
-
-- **HTML / CSS / JavaScript (ES Modules)** ไม่มี framework และไม่ต้อง build
-- **[MediaPipe Tasks Vision](https://developers.google.com/mediapipe)** สำหรับตรวจท่าทาง (Pose Landmarker)
-- **Vitest** สำหรับทดสอบ logic ของท่าทางและข้อความแปลภาษา
-
-เหตุผลที่ทำเป็นเว็บแทนแอปมือถือในรอบนี้อยู่ใน [`docs/adr/0001-web-for-hackathon-demo.md`](docs/adr/0001-web-for-hackathon-demo.md)
+### 3. Feedback
+The camera watches the elder's moves. A correct move earns praise in the grandchild's voice, and a move that isn't quite there gets a gentle nudge. After the last move, a praise screen appears.
 
 ---
 
-## 📁 โครงสร้างโปรเจกต์
+## 🛠️ Tech stack
+
+- **HTML / CSS / JavaScript (ES modules)**: no framework and no build step
+- **[MediaPipe Tasks Vision](https://developers.google.com/mediapipe)** for pose detection (Pose Landmarker)
+- **Vitest** for testing the pose logic and the translation helpers
+
+The reason this round ships as a website rather than a mobile app is in [`docs/adr/0001-web-for-hackathon-demo.md`](docs/adr/0001-web-for-hackathon-demo.md).
+
+---
+
+## 📁 Project structure
 
 ```
 JunePlease/
-├── index.html            # เว็บเล่าเรื่อง (ที่มา, วิธีทำงาน, ทีม)
-├── demo.html             # เดโมที่ใช้งานได้จริง (ผู้สูงอายุ / หลาน)
+├── index.html            # Story site (origin, how it works, team)
+├── demo.html             # Working demo (elder / grandchild roles)
 ├── css/
-│   ├── tokens.css        # สี ฟอนต์ ระยะห่าง
-│   ├── story.css         # สไตล์หน้าเล่าเรื่อง
-│   └── demo.css          # สไตล์หน้าเดโม
+│   ├── tokens.css        # Colors, fonts, spacing
+│   ├── story.css         # Story page styles
+│   └── demo.css          # Demo page styles
 ├── js/
-│   ├── content.js        # ข้อความไทย/อังกฤษ, ข้อมูลหลาน, ชุดท่าตัวอย่าง
-│   ├── i18n.js           # ตัวช่วยแปลภาษา
-│   ├── domain.js         # logic ตรวจท่าทางแต่ละท่า
-│   ├── story.js          # สคริปต์หน้าเล่าเรื่อง
-│   └── demo-app.js       # สคริปต์หน้าเดโม + กล้อง + MediaPipe
-├── sound_demo/           # เสียงหลาน (เรียก, ชม, ท่าผิด, จบ)
-├── prop_image_people/    # รูปสมาชิกทีม / หลาน
-├── prop_image_content/   # สติกเกอร์และรูปกิจกรรม
-├── tests/                # ชุดทดสอบ Vitest
-└── docs/                 # ADR, spec, แผนงาน, ภาพหน้าจอ
+│   ├── content.js        # Thai/English copy, grandchild data, preset move set
+│   ├── i18n.js           # Translation helpers
+│   ├── domain.js         # Pose-check logic for each move
+│   ├── story.js          # Story page script
+│   └── demo-app.js       # Demo script + camera + MediaPipe
+├── sound_demo/           # Grandchild voice clips (call, correct, wrong, finish)
+├── prop_image_people/    # Team / grandchild photos
+├── prop_image_content/   # Stickers and event photos
+├── tests/                # Vitest tests
+└── docs/                 # ADRs, specs, plans, screenshots
 ```
 
 ---
 
-## 🚀 วิธีรันบนเครื่อง
+## 🚀 Running locally
 
-เปิดเว็บผ่าน local server (เบราว์เซอร์จะยอมให้ใช้กล้องเมื่อเปิดผ่าน `localhost`)
+Serve the site from a local server (browsers allow camera access on `localhost`):
 
 ```bash
-# ใช้ Python
+# With Python
 python3 -m http.server 8000
 
-# หรือใช้ Node
+# Or with Node
 npx serve .
 ```
 
-จากนั้นเปิด
+Then open:
 
-- หน้าเล่าเรื่อง: <http://localhost:8000/index.html>
-- เดโม: <http://localhost:8000/demo.html>
-- เดโมแบบเริ่มเซสชันตัวอย่างทันที: <http://localhost:8000/demo.html?entry=preset>
+- Story site: <http://localhost:8000/index.html>
+- Demo: <http://localhost:8000/demo.html>
+- Demo that starts the sample session right away: <http://localhost:8000/demo.html?entry=preset>
 
-### รันชุดทดสอบ
+### Running the tests
 
 ```bash
 npm install
@@ -113,27 +113,27 @@ npm test
 
 ---
 
-## 📱 ขั้นต่อไป
+## 📱 What's next
 
-| วันนี้ | ขั้นต่อไป |
+| Today | Next |
 | --- | --- |
-| ลองเดโมผ่านเบราว์เซอร์ | แอปแท็บเล็ตสำหรับใช้ทุกวัน |
+| Try the browser demo | A tablet app for every day |
 
-แนวคิดเพิ่มเติมในอนาคต เช่น ตรวจจับการล้ม (Fall Detection) และแจ้งเตือนลูกหลานเมื่อเกิดเหตุฉุกเฉิน รายละเอียดอยู่ใน [`docs/superpowers/specs/`](docs/superpowers/specs/)
+Future ideas include fall detection and emergency alerts to family members. The details are in [`docs/superpowers/specs/`](docs/superpowers/specs/).
 
 ---
 
-## 👥 ทีม June Please
+## 👥 Team June Please
 
 <table>
   <tr>
-    <td align="center"><img src="prop_image_people/Pong/pong.jpg" width="140" alt="ป้อง"><br><b>ป้อง</b></td>
-    <td align="center"><img src="prop_image_people/Nua/nua.jpg" width="140" alt="เหนือ"><br><b>เหนือ</b></td>
-    <td align="center"><img src="prop_image_people/Yeen/yeen.jpg" width="140" alt="ยีนส์"><br><b>ยีนส์</b></td>
-    <td align="center"><img src="prop_image_people/James/james.jpg" width="140" alt="เจมส์"><br><b>เจมส์</b></td>
+    <td align="center"><img src="prop_image_people/Pong/pong.jpg" width="140" alt="Pong"><br><b>Pong</b></td>
+    <td align="center"><img src="prop_image_people/Nua/nua.jpg" width="140" alt="Nua"><br><b>Nua</b></td>
+    <td align="center"><img src="prop_image_people/Yeen/yeen.jpg" width="140" alt="Yeen"><br><b>Yeen</b></td>
+    <td align="center"><img src="prop_image_people/James/james.jpg" width="140" alt="James"><br><b>James</b></td>
   </tr>
 </table>
 
-พวกเราสี่คนเปลี่ยนคำถามเรื่องคนที่รัก ให้กลายเป็นต้นแบบที่ทดลองได้จริง
+Four people turning a question about those we love into a prototype people can try.
 
-> _ขยับด้วยกัน ใกล้กันขึ้นอีกนิด_ 💚
+> _Move together, a little closer._ 💚
