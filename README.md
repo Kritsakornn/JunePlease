@@ -26,7 +26,7 @@ Many elders don't want to follow a health app or a trainer they don't know. But 
 | Feature | Details |
 | --- | --- |
 | 🔔 **A call from the grandchild** | When it's time, the app plays a voice clip the grandchild recorded instead of a beep. The screen shows only the grandchild's face and one green button. |
-| 🪑 **Seated exercises** | Every move can be done in a chair: T-arms, shoulder circles, alternating punches, arms up, and hands on head. |
+| 🪑 **Seated exercises** | Every move can be done in a chair: Arm T, shoulder circles, alternate punch, arms up, and hands on head. |
 | 📷 **Camera move checking** | MediaPipe Pose checks the elder's moves through the front camera in real time and shows large, easy-to-read feedback. |
 | 🎉 **Praise at the end** | When the session ends, the grandchild gives praise by voice and on-screen text, then the app returns to the schedule. |
 | 🌏 **Two languages** | Switch between Thai and English from the top bar. |
@@ -42,9 +42,9 @@ The grandchild picks the time, chooses who will do the asking, and builds a set 
 ![Grandchild setup screen](docs/screenshots/demo-grandchild.png)
 
 ### 2. The elder starts moving
-At the set time, the elder sees the grandchild's face, hears their voice, and presses one button: **"Start exercise"**.
+Today's session waits on the elder's screen. At the set time, the elder sees the grandchild's face, hears their voice, and presses one button: **"Start exercise"**.
 
-![Call from the grandchild](docs/screenshots/demo-elder.png)
+![Elder's schedule card for today](docs/screenshots/demo-elder.png)
 
 ### 3. Feedback
 The camera watches the elder's moves. A correct move earns praise in the grandchild's voice, and a move that isn't quite there gets a gentle nudge. After the last move, a praise screen appears.
